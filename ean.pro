@@ -25,3 +25,5 @@ FORMS    += mainwindow.ui
 
 RESOURCES += \
     ean.qrc
+
+LIBS += -lquadmath

@@ -168,6 +168,7 @@ interval iclampedsplinevalue(int n, interval* x1, interval* f1, interval f1x0, i
     }
     return y;
   }
+	return interval("0");
 }
 
 
@@ -336,9 +337,10 @@ __float128 clampedsplinevalue(int n, __float128* x1, __float128* f1, __float128 
     }
     return y;
   }
+	return 0.0q;
 }
 
-int main() {
+int testmain() {
   interval* x = new interval[7];
   interval* f = new interval[7];
   *(x) = "17.0";

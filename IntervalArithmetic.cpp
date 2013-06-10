@@ -617,26 +617,25 @@ interval IntervalArithmetic::ISin(const interval& x, int & st)
 				w1 = ISub(w, s);
 			else
 				w1 = IAdd(w, s);
-			if ((w.a != 0) && (w.b != 0))
+			if ((w.a != 0) && (w.b != 0)) {
 				if ((abs(w.a - w1.a) / abs(w.a) < 1e-18) && (abs(w.b - w1.b)
-						/ abs(w.b) < 1e-18))
+						/ abs(w.b) < 1e-18)) {
 					finished = true;
-				else
-					;
-			else if ((w.a == 0) && (w.b != 0))
+				}
+			}
+			else if ((w.a == 0) && (w.b != 0)) {
 				if ((abs(w.a - w1.a) < 1e-18) && (abs(w.b - w1.b) / abs(w.b)
-						< 1e-18))
+						< 1e-18)) {
 					finished = true;
-				else
-					;
-
-			else if (w.a != 0)
+				}
+			}
+			else if (w.a != 0) {
 				if ((abs(w.a - w1.a) / abs(w.a) < 1e-18) & (abs(w.b - w1.b)
 						< 1e-18))
 					finished = true;
 				else if ((abs(w.a - w1.a) < 1e-18) & (abs(w.b - w1.b) < 1e-18))
 					finished = true;
-
+			}
 			if (finished)
 			{
 				if (w1.b > 1)
@@ -697,26 +696,23 @@ interval IntervalArithmetic::ICos(const interval& x, int & st)
 			else
 				w1 = IAdd(w, c);
 
-			if ((w.a != 0) && (w.b != 0))
+			if ((w.a != 0) && (w.b != 0)) {
 				if ((abs(w.a - w1.a) / abs(w.a) < 1e-18) && (abs(w.b - w1.b)
 						/ abs(w.b) < 1e-18))
 					finished = true;
-				else
-					;
-			else if ((w.a == 0) && (w.b != 0))
+			}
+			else if ((w.a == 0) && (w.b != 0)) {
 				if ((abs(w.a - w1.a) < 1e-18) && (abs(w.b - w1.b) / abs(w.b)
 						< 1e-18))
 					finished = true;
-				else
-					;
-
-			else if (w.a != 0)
+			}
+			else if (w.a != 0) {
 				if ((abs(w.a - w1.a) / abs(w.a) < 1e-18) & (abs(w.b - w1.b)
 						< 1e-18))
 					finished = true;
 				else if ((abs(w.a - w1.a) < 1e-18) & (abs(w.b - w1.b) < 1e-18))
 					finished = true;
-
+			}
 			if (finished)
 			{
 				if (w1.b > 1)
@@ -869,7 +865,7 @@ void IntervalArithmetic::IEndsToStrings(const interval & i, string & left,
 
 } /* namespace interval */
 
-int main2() {
+int interval_test() {
   /*
    * fesetround(FE_DOWNWARD);
    * __float128 pia = strtoflt128("3.141592653589793238462643383279502", NULL);
