@@ -28,7 +28,10 @@ public:
   interval() {}
   
   interval(string a);
-  
+	interval(string, string);
+	interval(long double a);
+	interval(long double, long double);
+
   inline bool operator< (interval const &i) const {
     return (a < i.b);
   }
@@ -41,7 +44,6 @@ public:
   inline bool operator>= (interval const &i) const {
     return (b >= i.a);
   }
-  // TODO: check those above :P
   inline bool operator== (interval const &i) const {
     return ((b == i.b) && (a == i.a));
   }

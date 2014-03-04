@@ -32,6 +32,28 @@ interval::interval(string s) {
   b = i.b;
 }
 
+interval::interval(string s1, string s2) {
+	interval i = IntervalArithmetic::IntRead(s1);
+	a = i.a;
+	i = IntervalArithmetic::IntRead(s2);
+	b = i.b;
+}
+
+
+interval::interval(long double s) {
+	// it might be better idea to use string constructor...
+	a = s;
+	b = s;
+}
+
+
+interval::interval(long double s1, long double s2) {
+	// it might be better idea to use string constructor...
+	a = s1;
+	b = s2;
+}
+
+
 interval interval::operator* (interval const &i) const {
   return IntervalArithmetic::IMul(*this, i);
 }

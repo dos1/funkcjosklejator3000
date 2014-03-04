@@ -21,6 +21,9 @@ class MainWindow : public QMainWindow
 
 	private:
 		Ui::MainWindow *ui;
+		void calculateReal();
+		void calculateInterval();
+		void calculateIntervalSingle();
 };
 
 #endif // MAINWINDOW_H

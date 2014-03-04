@@ -3,19 +3,10 @@
 
 using namespace intervalarth;
 
-void iclampedsplinecoeffns(int n, interval* x1, interval* f1, interval f1x0, interval f1xn, int &st) {
+void iclampedsplinecoeffns(int n, interval x[], interval f[], interval f1x0, interval f1xn, interval a[][4], int &st){
   int i,k;
   interval u,v,y,z,xi;
-  interval d[n+1], b[n+1], c[n+1];
-  interval a[4][n];
-  
-  /////
-  interval x[n+1], f[n+1];
-  for (i=0;i<=n;i++) {
-    x[i]=*(x1+i);
-    f[i]=*(f1+i);
-  }
-  
+  interval d[n+1], b[n+1], c[n+1];  
   
   if (n<1) {
     st=1;
@@ -72,30 +63,21 @@ void iclampedsplinecoeffns(int n, interval* x1, interval* f1, interval f1x0, int
       v=(f[i+1]-u)/z-(interval("2")*y+d[i+1])*z/interval("6");
       z=(d[i+1]-y)/(interval("6")*z);
       y=y/interval("2");
-      a[0][i]=((-z*xi+y)*xi-v)*xi+u;
+			a[i][0]=((-z*xi+y)*xi-v)*xi+u;
       u=interval("3")*z*xi;
-      a[1][i]=(u-interval("2")*y)*xi+v;
-      a[2][i]=y-u;
-      a[3][i]=z;
+			a[i][1]=(u-interval("2")*y)*xi+v;
+			a[i][2]=y-u;
+			a[i][3]=z;
     }
   }
-  std::cout << a[0][0] << std::endl;
-  //return a;
 }
-interval iclampedsplinevalue(int n, interval* x1, interval* f1, interval f1x0, interval f1xn, interval xx, int &st) {
+
+interval iclampedsplinevalue(int n, interval x[], interval f[], interval f1x0, interval f1xn, interval xx, int &st) {
   int i,k;
   interval u,y,z;
   bool found;
   interval a[4];
-  interval d[n+1], b[n+1], c[n+1];
-  
-  /////
-  interval x[n+1], f[n+1];
-  for (i=0;i<=n;i++) {
-    x[i]=*(x1+i);
-    f[i]=*(f1+i);
-  }
-  
+  interval d[n+1], b[n+1], c[n+1];  
   
   if (n<1) {
     st=1;
@@ -172,20 +154,11 @@ interval iclampedsplinevalue(int n, interval* x1, interval* f1, interval f1x0, i
 }
 
 
-void clampedsplinecoeffns(int n, __float128* x1, __float128* f1, __float128 f1x0, __float128 f1xn, int &st) {
+void clampedsplinecoeffns(int n, __float128 x[], __float128 f[], __float128 f1x0, __float128 f1xn, __float128 a[][4], int &st) {
   int i,k;
   __float128 u,v,y,z,xi;
   __float128 d[n+1], b[n+1], c[n+1];
-  __float128 a[4][n];
-  
-  /////
-  __float128 x[n+1], f[n+1];
-  for (i=0;i<=n;i++) {
-    x[i]=*(x1+i);
-    f[i]=*(f1+i);
-  }
-  
-  
+    
   if (n<1) {
     st=1;
   } else {
@@ -241,30 +214,22 @@ void clampedsplinecoeffns(int n, __float128* x1, __float128* f1, __float128 f1x0
       v=(f[i+1]-u)/z-(2*y+d[i+1])*z/6;
       z=(d[i+1]-y)/(6*z);
       y=y/2;
-      a[0][i]=((-z*xi+y)*xi-v)*xi+u;
+			a[i][0]=((-z*xi+y)*xi-v)*xi+u;
       u=3*z*xi;
-      a[1][i]=(u-2*y)*xi+v;
-      a[2][i]=y-u;
-      a[3][i]=z;
+			a[i][1]=(u-2*y)*xi+v;
+			a[i][2]=y-u;
+			a[i][3]=z;
     }
   }
-  std::cout << a[0][0] << std::endl;
-  //return a;
 }
-__float128 clampedsplinevalue(int n, __float128* x1, __float128* f1, __float128 f1x0, __float128 f1xn, __float128 xx, int &st) {
+
+__float128 clampedsplinevalue(int n, __float128 x[], __float128 f[], __float128 f1x0, __float128 f1xn, __float128 xx, int &st) {
   int i,k;
   __float128 u,y,z;
   bool found;
   __float128 a[4];
   __float128 d[n+1], b[n+1], c[n+1];
-  
-  /////
-  __float128 x[n+1], f[n+1];
-  for (i=0;i<=n;i++) {
-    x[i]=*(x1+i);
-    f[i]=*(f1+i);
-  }
-  
+    
   
   if (n<1) {
     st=1;
@@ -358,7 +323,8 @@ int testmain() {
   *(f+5) = "5.2";
   *(f+6) = "4.1";
   int st;
-  iclampedsplinecoeffns(6, x, f, interval("3.0"), interval("-4.0"), st);
+	interval aaaa[7][4];
+	iclampedsplinecoeffns(6, x, f, interval("3.0"), interval("-4.0"),aaaa, st);
   std::cout << st << std::endl;
   std::cout << iclampedsplinevalue(6, x, f, interval("3.0"), interval("-4.0"), interval("23.5"), st) << std::endl;
   std::cout << st << std::endl;
@@ -381,7 +347,8 @@ int testmain() {
   *(f1+4) = 5.8q;
   *(f1+5) = 5.2q;
   *(f1+6) = 4.1q;
-  clampedsplinecoeffns(6, x1, f1, 3.0q, -4.0q, st);
+	__float128 aaa[7][4];
+	clampedsplinecoeffns(6, x1, f1, 3.0q, -4.0q, aaa, st);
   std::cout << st << std::endl;
   std::cout << clampedsplinevalue(6, x1, f1, 3.0q, -4.0q, 23.5q, st) << std::endl;
   std::cout << st << std::endl;
